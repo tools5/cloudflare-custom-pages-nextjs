@@ -45,10 +45,15 @@ function processHtmlFile(filePath: string): void {
 
     updateTDK($, filePath);
 
-    // 添加 Cloudflare meta 标签，仅对 out/cf/ 目录下的 HTML 文件处理
+    // 娣诲姞 Cloudflare meta 鏍囩锛屼粎瀵?out/cf/ 鐩綍涓嬬殑 HTML 鏂囦欢澶勭悊
     if (filePath.includes(path.join("out", "cf"))) {
       addCloudflareMetaTags($);
     }
+
+    // Challenge 页面不能保留 Next.js/React 客户端脚本。
+    // Cloudflare 会把 ::CAPTCHA_BOX:: 替换为真实交互框；如果 Next.js 再水合，
+    // 会重写 DOM，导致 Turnstile 报 insertBefore null，交互无法拉起。
+    stripNextScriptsFromChallengePages($, filePath);
 
     // Move all script tags from head to bottom of body
     moveScriptsToBodyBottom($);
@@ -172,6 +177,38 @@ function moveScriptsToBodyBottom($: cheerio.CheerioAPI): void {
   }
 }
 
+
+function isChallengePage(filePath: string): boolean {
+  const parts = filePath.split(path.sep);
+  const cfIndex = parts.findIndex((part) => part === "cf");
+
+  if (cfIndex === -1) {
+    return false;
+  }
+
+  return parts[cfIndex + 1] === "challenge";
+}
+
+function stripNextScriptsFromChallengePages(
+  $: cheerio.CheerioAPI,
+  filePath: string,
+): void {
+  if (!isChallengePage(filePath)) {
+    return;
+  }
+
+  // 移除所有构建时产生的脚本：__NEXT_DATA__、webpack chunk、next-themes inline script 等。
+  // Cloudflare 真正的 challenge 脚本是在请求自定义页面时后注入的，不会存在于 out 构建产物里。
+  $("script").remove();
+
+  // 同时移除 Next.js 脚本预加载，避免浏览器继续预加载无用 chunk。
+  $('link[rel="preload"][as="script"]').remove();
+  $('link[rel="modulepreload"]').remove();
+  $('link[href*="/_next/static/"][as="script"]').remove();
+  $('link[href*="/_next/static/chunks/"]').remove();
+
+  console.log(`Stripped Next.js scripts from challenge page: ${filePath}`);
+}
 function main() {
   const outDir = "./out";
 
@@ -194,3 +231,4 @@ function main() {
 }
 
 main();
+
