@@ -38,10 +38,10 @@ export const CaptchaBox = ({
             </div>
           )}
 
-          <div className="w-full h-24 bg-gray-50 dark:bg-gray-900 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-200 dark:border-gray-700 transition-colors hover:border-blue-200 dark:hover:border-blue-700">
+          <div className="w-full min-h-[220px] bg-gray-50 dark:bg-gray-900 rounded-lg flex items-start justify-center border-2 border-dashed border-gray-200 dark:border-gray-700 transition-colors hover:border-blue-200 dark:hover:border-blue-700 overflow-visible">
             {box ? (
               <div
-                className="text-gray-600 dark:text-gray-300 p-4 w-full h-full flex items-center justify-center"
+                className="text-gray-600 dark:text-gray-300 p-4 w-full min-h-[220px] block [&_.main-wrapper]:w-full [&_.main-content]:w-full"
                 dangerouslySetInnerHTML={{ __html: `<div>::${box}::</div>` }}
                 aria-live="polite"
               />
