@@ -6,7 +6,7 @@
   <meta name="client-ip" content="::CLIENT_IP::">
   <meta name="ray-id" content="::RAY_ID::">
   <meta name="location-code" content="::GEO::">
-  <title>交互式质询 - Cloudflare</title>
+  <title>&#20132;&#20114;&#24335;&#36136;&#35810; - Cloudflare</title>
   <script data-cf-theme-bootstrap>
 (function(){try{var k='cf-theme-mode',r=document.documentElement,m=localStorage.getItem(k);m=m==='light'||m==='dark'||m==='system'?m:'system';var d=m==='dark'||(m==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);r.classList.toggle('dark',d);r.classList.toggle('light',!d);r.setAttribute('data-cf-theme-mode',m);}catch(e){}})();
   </script>
@@ -18,16 +18,16 @@
   <main class="shell">
     <section class="card" aria-label="Cloudflare security challenge">
       <header class="header">
-        <button class="theme" type="button" data-cf-theme-toggle aria-label="切换主题" title="跟随系统 / 浅色 / 深色"><span class="theme-icon theme-light">&#9728;</span><span class="theme-icon theme-dark">&#9790;</span><span class="theme-icon theme-system">跟</span></button>
-        <div class="headrow"><div class="badge" aria-hidden="true"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg></div><div><div class="subtitle">安全检查</div><h1>交互式质询</h1></div></div>
+        <button class="theme" type="button" data-cf-theme-toggle aria-label="&#20999;&#25442;&#20027;&#39064;" title="&#36319;&#38543;&#31995;&#32479; / &#27973;&#33394; / &#28145;&#33394;"><span class="theme-icon theme-light">&#9728;</span><span class="theme-icon theme-dark">&#9790;</span><span class="theme-icon theme-system">&#36319;</span></button>
+        <div class="headrow"><div class="badge" aria-hidden="true"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg></div><div><div class="subtitle">&#23433;&#20840;&#26816;&#26597;</div><h1>&#20132;&#20114;&#24335;&#36136;&#35810;</h1></div></div>
       </header>
       <div class="body">
-        <div class="notice"><span aria-hidden="true">&#9432;</span><span>请完成验证后继续访问。</span></div>
+        <div class="notice"><span aria-hidden="true">&#9432;</span><span>&#35831;&#23436;&#25104;&#39564;&#35777;&#21518;&#32487;&#32493;&#35775;&#38382;&#12290;</span></div>
         <div class="challenge-viewport"><div class="challenge-box"><div class="challenge-inner">::CAPTCHA_BOX::</div></div></div>
-        <section class="network" aria-label="连接状态"><h2 class="network-title"><span>&harr;</span>连接状态</h2><div class="track"><div class="node you">您</div><div class="line" aria-hidden="true"></div><div class="node cdn">&check; CDN</div></div></section>
+        <section class="network" aria-label="&#36830;&#25509;&#29366;&#24577;"><h2 class="network-title"><span>&harr;</span>&#36830;&#25509;&#29366;&#24577;</h2><div class="track"><div class="node you">&#24744;</div><div class="line" aria-hidden="true"></div><div class="node cdn">&check; CDN</div></div></section>
       </div>
     </section>
-    <footer class="footer"><div>位置: ::GEO::<span class="dot">&bull;</span>IP: ::CLIENT_IP::</div><div>Ray ID: ::RAY_ID::</div></footer>
+    <footer class="footer"><div>&#20301;&#32622;: ::GEO::<span class="dot">&bull;</span>IP: ::CLIENT_IP::</div><div>Ray ID: ::RAY_ID::</div></footer>
   </main>
   <script data-cf-theme-runtime>
 (function(){var k='cf-theme-mode',modes=['system','light','dark'],mq=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null,r=document.documentElement;function read(){try{var v=localStorage.getItem(k);return modes.indexOf(v)>=0?v:'system';}catch(e){return 'system';}}function apply(m){var d=m==='dark'||(m==='system'&&mq&&mq.matches);r.classList.toggle('dark',!!d);r.classList.toggle('light',!d);r.setAttribute('data-cf-theme-mode',m);var b=document.querySelectorAll('[data-cf-theme-toggle]');for(var i=0;i<b.length;i++){var t=m==='system'?'\u8ddf\u968f\u7cfb\u7edf\u4e3b\u9898':m==='dark'?'\u6df1\u8272\u6a21\u5f0f':'\u6d45\u8272\u6a21\u5f0f';b[i].setAttribute('title',t+'\uff0c\u70b9\u51fb\u5207\u6362');b[i].setAttribute('aria-label',t+'\uff0c\u70b9\u51fb\u5207\u6362');}}function set(m){try{localStorage.setItem(k,m)}catch(e){}apply(m)}document.addEventListener('click',function(e){var b=e.target&&e.target.closest?e.target.closest('[data-cf-theme-toggle]'):null;if(!b)return;e.preventDefault();var m=read();set(modes[(modes.indexOf(m)+1)%modes.length]);});if(mq){var l=function(){if(read()==='system')apply('system')};mq.addEventListener?mq.addEventListener('change',l):mq.addListener&&mq.addListener(l)}apply(read());})();
