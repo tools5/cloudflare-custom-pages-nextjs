@@ -28,23 +28,23 @@ export const NetworkStatusBox = ({
   return (
     <div
       className={clsx(
-        "w-full p-3 sm:p-5 backdrop-blur-sm rounded-xl",
+        "w-full p-2 sm:p-5 backdrop-blur-sm rounded-xl",
         "bg-white/50 dark:bg-gray-900/50",
         "border border-gray-100/80 dark:border-gray-800/80",
         className,
       )}
     >
-      <div className="flex items-center justify-center gap-1 sm:gap-2">
+      <div className="flex items-center justify-center gap-0.5 sm:gap-2">
         <NetworkNode
           label={interfaceTranslations["network-status-you"].message}
           status={clientStatus}
-          className="w-[100px] sm:w-[120px]"
+          className="w-[92px] sm:w-[120px]"
         />
         <NetworkLine status={clientStatus} />
         <NetworkNode
           label={interfaceTranslations["network-status-cdn"].message}
           status={edgeStatus}
-          className="w-[100px] sm:w-[120px]"
+          className="w-[92px] sm:w-[120px]"
         />
 
         {originStatus && (
@@ -56,7 +56,7 @@ export const NetworkStatusBox = ({
                 interfaceTranslations["network-status-origin"].message
               }
               status={originStatus}
-              className="w-[100px] sm:w-[120px]"
+              className="w-[92px] sm:w-[120px]"
             />
           </>
         )}

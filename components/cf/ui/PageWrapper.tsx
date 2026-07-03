@@ -67,7 +67,7 @@ export function PageWrapper({ pageType }: { pageType: PageType }) {
   }
 
   return (
-    <Providers themeProps={{ attribute: "class", defaultTheme: "dark", forcedTheme: "dark" }}>
+    <Providers themeProps={{ attribute: "class", defaultTheme: "system", enableSystem: true }}>
       <CFLayout>
         {/* biome-ignore lint/suspicious/noExplicitAny: TypeScript Too HARD */}
         <Component {...(config as any)} />

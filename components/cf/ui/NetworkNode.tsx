@@ -38,7 +38,7 @@ export const NetworkNode = ({ label, status, className }: NetworkNodeProps) => {
   return (
     <div
       className={clsx(
-        "px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl font-medium text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2",
+        "px-2 sm:px-4 py-2 sm:py-2.5 rounded-xl font-medium text-xs sm:text-sm flex items-center justify-center gap-1 sm:gap-2",
         "transition-all duration-300 ease-out hover:scale-[1.02] active:scale-100",
         styles.container,
         className,

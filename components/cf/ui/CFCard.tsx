@@ -45,10 +45,10 @@ export const CFCard = ({
   return (
     <Card
       suppressHydrationWarning
-      className="max-w-xl mx-auto overflow-hidden bg-white dark:bg-gray-900 shadow-xl ring-1 ring-gray-900/5 dark:ring-gray-800 m-2 sm:m-4 rounded-xl"
+      className="w-full max-w-xl mx-auto overflow-hidden bg-white dark:bg-gray-900 shadow-xl ring-1 ring-gray-900/5 dark:ring-gray-800 m-0 sm:m-2 rounded-xl"
     >
       <CardHeader
-        className={cx("relative p-4 sm:p-6 rounded-t-xl", headerClassName)}
+        className={cx("relative p-3 sm:p-5 rounded-t-xl", headerClassName)}
       >
         {watermark && (
           <div className="absolute right-0 top-0 h-16 sm:h-24 w-16 sm:w-24 opacity-20">
@@ -56,11 +56,11 @@ export const CFCard = ({
           </div>
         )}
 
-        <div className="absolute right-4 sm:right-6 top-4 sm:top-6">
+        <div className="absolute right-3 sm:right-5 top-3 sm:top-5 z-10">
           <ThemeSwitch />
         </div>
 
-        <div className="flex flex-row items-center gap-3 sm:gap-4">
+        <div className="flex flex-row items-center gap-3 sm:gap-4 pr-9 sm:pr-10">
           <div className="flex-shrink-0">
             <div className="relative w-10 h-10 sm:w-12 sm:h-12">
               <div
@@ -85,13 +85,13 @@ export const CFCard = ({
           <div className="flex flex-col min-w-0">
             {subtitle &&
               (typeof subtitle === "string" ? (
-                <span className="text-sm font-medium text-default-600 dark:text-default-400 truncate">
+                <span className="text-xs sm:text-sm font-medium text-default-600 dark:text-default-400 truncate">
                   {subtitle}
                 </span>
               ) : (
                 subtitle
               ))}
-            <h3 className="text-lg sm:text-xl font-semibold tracking-tight text-gray-900 dark:text-white truncate">
+            <h3 className="text-lg sm:text-xl font-semibold tracking-tight text-gray-900 dark:text-white leading-tight">
               {title}
             </h3>
           </div>
@@ -100,14 +100,16 @@ export const CFCard = ({
 
       <CardBody
         suppressHydrationWarning
-        className="space-y-3 sm:space-y-4 md:space-y-6 p-4 sm:p-5 md:p-6"
+        className="space-y-0 p-3 sm:p-5 md:p-6"
       >
-        <p
-          suppressHydrationWarning
-          className="text-gray-600 dark:text-gray-300 leading-relaxed"
-        >
-          {message}
-        </p>
+        {message && (
+          <p
+            suppressHydrationWarning
+            className="text-gray-600 dark:text-gray-300 leading-relaxed"
+          >
+            {message}
+          </p>
+        )}
         {children}
       </CardBody>
 

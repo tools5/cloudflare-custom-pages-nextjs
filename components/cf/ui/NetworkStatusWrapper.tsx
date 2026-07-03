@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 export const NetworkStatusWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <div className="p-3 sm:p-5 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
-      <div className="space-y-4 sm:space-y-5">
+      <div className="space-y-3 sm:space-y-5">
         <h3 className="text-sm md:text-base font-medium text-gray-900 dark:text-gray-100 flex items-center gap-1.5 sm:gap-2">
           <Icon
             name="chevron-left-right-ellipsis"

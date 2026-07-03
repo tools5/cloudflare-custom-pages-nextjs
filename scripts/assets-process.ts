@@ -59,8 +59,13 @@ function processHtmlFile(filePath: string): void {
     // rewrite the DOM and break Turnstile.
     stripNextScriptsFromChallengePages($, filePath);
 
-    // Move all script tags from head to bottom of body
+    // Move build-time scripts first, then inject the tiny theme bootstrap into head.
+    // The bootstrap must stay in head so system/light/dark mode is applied before paint.
     moveScriptsToBodyBottom($);
+
+    if (isCloudflarePage) {
+      injectCloudflareThemeRuntime($);
+    }
 
     fs.writeFileSync(filePath, $.html());
     console.log(`Processed: ${filePath}`);
@@ -181,13 +186,86 @@ function moveScriptsToBodyBottom($: cheerio.CheerioAPI): void {
   }
 }
 
-function forceDarkClass($: cheerio.CheerioAPI): void {
+function normalizeCloudflareHtml($: cheerio.CheerioAPI): void {
   const html = $("html");
-  const currentClass = html.attr("class") || "";
-  const classes = new Set(currentClass.split(/\s+/).filter(Boolean));
-  classes.add("dark");
-  html.attr("class", Array.from(classes).join(" "));
   html.attr("lang", "zh-CN");
+  html.attr("data-cf-theme-mode", "system");
+}
+
+function injectCloudflareThemeRuntime($: cheerio.CheerioAPI): void {
+  const bootstrap = `
+(function(){
+  try {
+    var key = "cf-theme-mode";
+    var root = document.documentElement;
+    var stored = localStorage.getItem(key);
+    var mode = stored === "light" || stored === "dark" || stored === "system" ? stored : "system";
+    var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var dark = mode === "dark" || (mode === "system" && prefersDark);
+    root.classList.toggle("dark", dark);
+    root.classList.toggle("light", !dark);
+    root.setAttribute("data-cf-theme-mode", mode);
+  } catch (e) {}
+})();`;
+
+  const runtime = `
+(function(){
+  var key = "cf-theme-mode";
+  var modes = ["system", "light", "dark"];
+  var mq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+  var root = document.documentElement;
+
+  function readMode() {
+    try {
+      var stored = localStorage.getItem(key);
+      return modes.indexOf(stored) >= 0 ? stored : "system";
+    } catch (e) {
+      return "system";
+    }
+  }
+
+  function apply(mode) {
+    var dark = mode === "dark" || (mode === "system" && mq && mq.matches);
+    root.classList.toggle("dark", !!dark);
+    root.classList.toggle("light", !dark);
+    root.setAttribute("data-cf-theme-mode", mode);
+    var buttons = document.querySelectorAll("[data-cf-theme-toggle]");
+    for (var i = 0; i < buttons.length; i++) {
+      var text = mode === "system" ? "跟随系统主题" : mode === "dark" ? "深色模式" : "浅色模式";
+      buttons[i].setAttribute("title", text + "，点击切换");
+      buttons[i].setAttribute("aria-label", text + "，点击切换");
+    }
+  }
+
+  function setMode(mode) {
+    try { localStorage.setItem(key, mode); } catch (e) {}
+    apply(mode);
+  }
+
+  function nextMode() {
+    var mode = readMode();
+    setMode(modes[(modes.indexOf(mode) + 1) % modes.length]);
+  }
+
+  document.addEventListener("click", function(event) {
+    var target = event.target;
+    var button = target && target.closest ? target.closest("[data-cf-theme-toggle]") : null;
+    if (!button) return;
+    event.preventDefault();
+    nextMode();
+  });
+
+  if (mq) {
+    var listener = function(){ if (readMode() === "system") apply("system"); };
+    if (mq.addEventListener) mq.addEventListener("change", listener);
+    else if (mq.addListener) mq.addListener(listener);
+  }
+
+  apply(readMode());
+})();`;
+
+  $("head").prepend(`<script data-cf-theme-bootstrap>${bootstrap}</script>`);
+  $("body").append(`<script data-cf-theme-runtime>${runtime}</script>`);
 }
 
 function isChallengePage(filePath: string): boolean {

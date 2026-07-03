@@ -25,24 +25,26 @@ export const CaptchaBox = ({
         headerClassName="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-900/10"
         scheme="primary"
       >
-        <div className="space-y-6">
+        <div className="space-y-3 sm:space-y-5">
           {translation.message && (
-            <div className="flex items-center gap-2 -mt-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-100 dark:border-blue-900/30">
+            <div className="flex items-start gap-2 -mt-3 sm:-mt-4 p-3 sm:p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-100 dark:border-blue-900/30">
               <Icon
                 name="info"
-                className="w-4 h-4 text-blue-500 dark:text-blue-400 flex-shrink-0"
+                className="w-4 h-4 mt-0.5 text-blue-500 dark:text-blue-400 flex-shrink-0"
               />
-              <p className="text-sm text-blue-700 dark:text-blue-300">
+              <p className="text-sm leading-6 text-blue-700 dark:text-blue-300">
                 {translation.message}
               </p>
             </div>
           )}
 
-          <div className="mx-auto w-fit max-w-full min-h-[78px] bg-gray-50 dark:bg-gray-900 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-200 dark:border-gray-700 transition-colors hover:border-blue-200 dark:hover:border-blue-700 overflow-hidden">
+          <div className="cf-challenge-viewport mx-auto w-full bg-gray-50 dark:bg-gray-900 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-200 dark:border-gray-700 transition-colors hover:border-blue-200 dark:hover:border-blue-700">
             {box ? (
               <div
-                className="cf-challenge-box text-gray-600 dark:text-gray-300 p-2 sm:p-3 w-fit max-w-full min-h-[78px] flex items-center justify-center overflow-hidden [&_.main-wrapper]:w-full [&_.main-wrapper]:max-w-full [&_.main-content]:w-full [&_.main-content]:max-w-full [&_iframe]:max-w-full"
-                dangerouslySetInnerHTML={{ __html: `<div class="w-full max-w-full">::${box}::</div>` }}
+                className="cf-challenge-box text-gray-600 dark:text-gray-300 flex items-center justify-center"
+                dangerouslySetInnerHTML={{
+                  __html: `<div class="cf-challenge-inner">::${box}::</div>`,
+                }}
                 aria-live="polite"
               />
             ) : (

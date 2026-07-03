@@ -56,3 +56,100 @@ pre {
     opacity: 0;
   }
 }
+
+
+/* Cloudflare Custom Pages: compact mobile challenge widget */
+.cf-page-shell {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.cf-challenge-viewport {
+  --cf-widget-width: 300px;
+  --cf-widget-scale: 1;
+  min-height: 82px;
+  padding: 6px;
+  overflow: hidden;
+}
+
+.cf-challenge-box,
+.cf-challenge-inner {
+  width: var(--cf-widget-width);
+  max-width: 100%;
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center center;
+}
+
+.cf-challenge-box iframe,
+.cf-challenge-inner iframe,
+.cf-challenge-box > div,
+.cf-challenge-inner > div {
+  max-width: 100% !important;
+}
+
+@media (max-width: 340px) {
+  .cf-challenge-viewport {
+    --cf-widget-scale: 0.9;
+    min-height: 72px;
+  }
+
+  .cf-challenge-box {
+    max-width: none;
+    transform: scale(var(--cf-widget-scale));
+  }
+}
+
+@media (max-width: 380px) and (max-height: 760px) {
+  .cf-page-shell {
+    justify-content: flex-start;
+  }
+
+  .cf-footer-wrap {
+    margin-top: 0.125rem;
+  }
+}
+
+.cf-network-line-anim {
+  animation: network-line-flow 1.65s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes network-line-flow {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+.cf-theme-icon {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+html[data-cf-theme-mode="light"] .cf-theme-icon-light,
+html[data-cf-theme-mode="dark"] .cf-theme-icon-dark,
+html[data-cf-theme-mode="system"] .cf-theme-icon-system {
+  display: inline-flex;
+}
+
+.cf-theme-icon-system {
+  height: 1.25rem;
+  min-width: 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
