@@ -264,8 +264,13 @@ function injectCloudflareThemeRuntime($: cheerio.CheerioAPI): void {
   apply(readMode());
 })();`;
 
-  $("head").prepend(`<script data-cf-theme-bootstrap>${bootstrap}</script>`);
-  $("body").append(`<script data-cf-theme-runtime>${runtime}</script>`);
+  if ($("script[data-cf-theme-bootstrap]").length === 0) {
+    $("head").prepend(`<script data-cf-theme-bootstrap>${bootstrap}</script>`);
+  }
+
+  if ($("script[data-cf-theme-runtime]").length === 0) {
+    $("body").append(`<script data-cf-theme-runtime>${runtime}</script>`);
+  }
 }
 
 function isChallengePage(filePath: string): boolean {
