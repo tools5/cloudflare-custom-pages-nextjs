@@ -20,7 +20,7 @@ export const CaptchaBox = ({
       <CFCard
         title={translation.title}
         message=""
-        subtitle="Security Check"
+        subtitle="安全检查"
         icon={<Icon name={icon} className="h-6 w-6 text-white" />}
         headerClassName="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-900/10"
         scheme="primary"
@@ -38,16 +38,16 @@ export const CaptchaBox = ({
             </div>
           )}
 
-          <div className="w-full min-h-[220px] bg-gray-50 dark:bg-gray-900 rounded-lg flex items-start justify-center border-2 border-dashed border-gray-200 dark:border-gray-700 transition-colors hover:border-blue-200 dark:hover:border-blue-700 overflow-visible">
+          <div className="mx-auto w-fit max-w-full min-h-[78px] bg-gray-50 dark:bg-gray-900 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-200 dark:border-gray-700 transition-colors hover:border-blue-200 dark:hover:border-blue-700 overflow-hidden">
             {box ? (
               <div
-                className="text-gray-600 dark:text-gray-300 p-4 w-full min-h-[220px] block [&_.main-wrapper]:w-full [&_.main-content]:w-full"
-                dangerouslySetInnerHTML={{ __html: `<div>::${box}::</div>` }}
+                className="cf-challenge-box text-gray-600 dark:text-gray-300 p-2 sm:p-3 w-fit max-w-full min-h-[78px] flex items-center justify-center overflow-hidden [&_.main-wrapper]:w-full [&_.main-wrapper]:max-w-full [&_.main-content]:w-full [&_.main-content]:max-w-full [&_iframe]:max-w-full"
+                dangerouslySetInnerHTML={{ __html: `<div class="w-full max-w-full">::${box}::</div>` }}
                 aria-live="polite"
               />
             ) : (
               <p className="text-gray-400 dark:text-gray-500 font-medium">
-                Loading verification...
+                正在加载验证…
               </p>
             )}
           </div>

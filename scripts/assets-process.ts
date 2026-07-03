@@ -45,14 +45,18 @@ function processHtmlFile(filePath: string): void {
 
     updateTDK($, filePath);
 
-    // 娣诲姞 Cloudflare meta 鏍囩锛屼粎瀵?out/cf/ 鐩綍涓嬬殑 HTML 鏂囦欢澶勭悊
+    // Add Cloudflare meta tags to every generated custom page.
     if (filePath.includes(path.join("out", "cf"))) {
       addCloudflareMetaTags($);
+      forceDarkClass($);
     }
 
     // Challenge 页面不能保留 Next.js/React 客户端脚本。
     // Cloudflare 会把 ::CAPTCHA_BOX:: 替换为真实交互框；如果 Next.js 再水合，
     // 会重写 DOM，导致 Turnstile 报 insertBefore null，交互无法拉起。
+    // Challenge pages must not keep Next.js/React client scripts.
+    // Cloudflare injects the real challenge widget at request time; hydration can
+    // rewrite the DOM and break Turnstile.
     stripNextScriptsFromChallengePages($, filePath);
 
     // Move all script tags from head to bottom of body
@@ -177,6 +181,14 @@ function moveScriptsToBodyBottom($: cheerio.CheerioAPI): void {
   }
 }
 
+function forceDarkClass($: cheerio.CheerioAPI): void {
+  const html = $("html");
+  const currentClass = html.attr("class") || "";
+  const classes = new Set(currentClass.split(/\s+/).filter(Boolean));
+  classes.add("dark");
+  html.attr("class", Array.from(classes).join(" "));
+  html.attr("lang", "zh-CN");
+}
 
 function isChallengePage(filePath: string): boolean {
   const parts = filePath.split(path.sep);
@@ -199,9 +211,12 @@ function stripNextScriptsFromChallengePages(
 
   // 移除所有构建时产生的脚本：__NEXT_DATA__、webpack chunk、next-themes inline script 等。
   // Cloudflare 真正的 challenge 脚本是在请求自定义页面时后注入的，不会存在于 out 构建产物里。
+  // Remove build-time scripts: __NEXT_DATA__, webpack chunks, next-themes inline script, etc.
+  // Cloudflare injects the real challenge script at request time, so it is not in out/.
   $("script").remove();
 
   // 同时移除 Next.js 脚本预加载，避免浏览器继续预加载无用 chunk。
+  // Also remove Next.js script preloads so the browser does not preload unused chunks.
   $('link[rel="preload"][as="script"]').remove();
   $('link[rel="modulepreload"]').remove();
   $('link[href*="/_next/static/"][as="script"]').remove();

@@ -13,31 +13,27 @@ export interface ChallengePageTranslation extends PageTranslation {}
 
 export const blockPageTranslations: Record<string, BlockPageTranslation> = {
   ip: {
-    title: "Your IP is blocked",
-    message: "The owner of this website has banned your IP address.",
+    title: "访问被阻止",
+    message: "网站所有者已阻止您的 IP 地址访问。",
   },
   waf: {
-    title: "You're blocked by WAF",
-    message:
-      "The Cloudflare WAF (Web Application Firewall) has blocked your request.",
+    title: "请求被 WAF 拦截",
+    message: "Cloudflare Web 应用程序防火墙已拦截您的请求。",
   },
   "rate-limit": {
-    title: "Rate Limit Block - 429",
-    message:
-      "You have made too many requests. Please wait a moment before trying again.",
+    title: "请求过于频繁 - 429",
+    message: "您的请求次数过多，请稍后再试。",
   },
 } as const;
 
 export const errorPageTranslations: Record<string, ErrorPageTranslation> = {
   "500s": {
-    title: "Internal Server Error",
-    message:
-      "Please try again later, there was an unexpected error on the site.",
+    title: "源站服务器错误",
+    message: "网站暂时无法处理请求，请稍后再试。",
   },
   "1000s": {
-    title: "DNS Resolution Error",
-    message:
-      "The requested hostname could not be resolved. Don't worry, it's not your problem.",
+    title: "DNS 解析错误",
+    message: "请求的主机名无法解析，请检查域名或配置。",
   },
 } as const;
 
@@ -46,39 +42,37 @@ export const challengePageTranslations: Record<
   ChallengePageTranslation
 > = {
   interactive: {
-    title: "Interactive Challenge",
-    message: "Please complete this CAPTCHA to access the site.",
+    title: "交互式质询",
+    message: "请完成验证后继续访问。",
   },
   managed: {
-    title: "I'm Under Attack Mode™",
-    message: "Complete CAPTCHA to proceed. This is a general security check.",
+    title: "正在遭受攻击模式™",
+    message: "请完成验证后继续。这是一项常规安全检查。",
   },
   country: {
-    title: "Challenge",
-    message:
-      "Additional verification is required for visitors from your Country/Region.",
+    title: "访问验证",
+    message: "来自您所在国家/地区的访问需要额外验证。",
   },
   javascript: {
-    title: "Please wait...",
-    message:
-      "Please wait a moment while our security system verifies your request.",
+    title: "请稍候…",
+    message: "安全系统正在验证您的请求，请稍候。",
   },
 } as const;
 
 export const interfaceTranslations: Record<string, InterfaceTranslations> = {
   "error-details": {
-    message: "Learn more",
+    message: "了解更多",
   },
   "connection-tracking": {
-    message: "Connection Tracking",
+    message: "连接状态",
   },
   "network-status-you": {
-    message: "You",
+    message: "您",
   },
   "network-status-cdn": {
     message: "CDN",
   },
   "network-status-origin": {
-    message: "Origin",
+    message: "源站",
   },
 } as const;

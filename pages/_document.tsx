@@ -3,7 +3,7 @@ import { Head, Html, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang="zh-CN" className="dark">
       <Head>
         {/* <!-- Cloudflare Pages Custom Error Pages --> */}
         <meta name="description" content={siteConfig.description} />
